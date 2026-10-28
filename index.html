@@ -21,10 +21,10 @@
         const { useState, useMemo } = React;
 
         const INITIAL_VEHICLES = [
-            { id: 'v1', make: 'Fiat', model: '500X', plate: 'GC123AB', mileage: 45200, status: 'disponibile', needsCleaning: false, fuelLevel: 85, assignedTo: null, pickupDate: null, expectedReturn: null, image: 'https://images.unsplash.com/photo-1543939542-7e3f8b79c341?auto=format&fit=crop&q=80&w=600' },
-            { id: 'v2', make: 'Volkswagen', model: 'Golf VIII', plate: 'TK890XY', mileage: 68400, status: 'in_uso', needsCleaning: false, fuelLevel: 60, assignedTo: 'Marco Rossi', pickupDate: '2026-10-27T08:30', expectedReturn: '2026-10-28T18:00', image: 'https://images.unsplash.com/photo-1541899481282-d53bf1c353d3?auto=format&fit=crop&q=80&w=600' },
-            { id: 'v3', make: 'Peugeot', model: '308 SW', plate: 'GE456CD', mileage: 92100, status: 'da_pulire', needsCleaning: true, fuelLevel: 30, assignedTo: null, pickupDate: null, expectedReturn: null, image: 'https://images.unsplash.com/photo-1533473359331-0135ef185bf?auto=format&fit=crop&q=80&w=600' },
-            { id: 'v4', make: 'Tesla', model: 'Model 3', plate: 'HA987EF', mileage: 28000, status: 'disponibile', needsCleaning: false, fuelLevel: 95, assignedTo: null, pickupDate: null, expectedReturn: null, image: 'https://images.unsplash.com/photo-1560939889-88a1929ce897?auto=format&fit=crop&q=80&w=600' }
+            { id: 'v1', make: 'Fiat', model: 'Ducato', plate: 'GY194AY', mileage: 45200, status: 'disponibile', needsCleaning: false, fuelLevel: 85, assignedTo: null, pickupDate: null, expectedReturn: null, image: 'https://images.unsplash.com/photo-1543939542-7e3f8b79c341?auto=format&fit=crop&q=80&w=600' },
+            { id: 'v2', make: 'Fiat', model: 'Ducato', plate: 'GY187AY', mileage: 68400, status: 'in_uso', needsCleaning: false, fuelLevel: 60, assignedTo: 'Marco Rossi', pickupDate: '2026-10-27T08:30', expectedReturn: '2026-10-28T18:00', image: 'https://images.unsplash.com/photo-1541899481282-d53bf1c353d3?auto=format&fit=crop&q=80&w=600' },
+            { id: 'v3', make: 'Renault', model: 'Kangoo', plate: 'FL929BC', mileage: 92100, status: 'da_pulire', needsCleaning: true, fuelLevel: 30, assignedTo: null, pickupDate: null, expectedReturn: null, image: 'https://images.unsplash.com/photo-1533473359331-0135ef185bf?auto=format&fit=crop&q=80&w=600' },
+            { id: 'v4', make: 'Opel', model: 'Combo', plate: 'GA421HV', mileage: 28000, status: 'disponibile', needsCleaning: false, fuelLevel: 95, assignedTo: null, pickupDate: null, expectedReturn: null, image: 'https://images.unsplash.com/photo-1560939889-88a1929ce897?auto=format&fit=crop&q=80&w=600' }
         ];
 
         const INITIAL_LOGS = [
