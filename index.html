@@ -21,15 +21,14 @@
         const { useState, useMemo } = React;
 
         const INITIAL_VEHICLES = [
-            { id: 'v1', make: 'Fiat', model: 'Ducato', plate: 'GY194AY', mileage: 45200, status: 'disponibile', needsCleaning: false, fuelLevel: 85, assignedTo: null, pickupDate: null, expectedReturn: null, image: 'https://images.unsplash.com/photo-1543939542-7e3f8b79c341?auto=format&fit=crop&q=80&w=600' },
-            { id: 'v2', make: 'Fiat', model: 'Ducato', plate: 'GY187AY', mileage: 68400, status: 'in_uso', needsCleaning: false, fuelLevel: 60, assignedTo: 'Marco Rossi', pickupDate: '2026-10-27T08:30', expectedReturn: '2026-10-28T18:00', image: 'https://images.unsplash.com/photo-1541899481282-d53bf1c353d3?auto=format&fit=crop&q=80&w=600' },
-            { id: 'v3', make: 'Renault', model: 'Kangoo', plate: 'FL929BC', mileage: 92100, status: 'da_pulire', needsCleaning: true, fuelLevel: 30, assignedTo: null, pickupDate: null, expectedReturn: null, image: 'https://images.unsplash.com/photo-1533473359331-0135ef185bf?auto=format&fit=crop&q=80&w=600' },
-            { id: 'v4', make: 'Opel', model: 'Combo', plate: 'GA421HV', mileage: 28000, status: 'disponibile', needsCleaning: false, fuelLevel: 95, assignedTo: null, pickupDate: null, expectedReturn: null, image: 'https://images.unsplash.com/photo-1560939889-88a1929ce897?auto=format&fit=crop&q=80&w=600' }
+            { id: 'v1', make: 'Fiat', model: '500X', plate: 'GC123AB', mileage: 45200, status: 'disponibile', needsCleaning: false, fuelLevel: 85, assignedTo: null, pickupDate: null, expectedReturn: null, image: 'https://images.unsplash.com/photo-1543939542-7e3f8b79c341?auto=format&fit=crop&q=80&w=600' },
+            { id: 'v2', make: 'Volkswagen', model: 'Golf VIII', plate: 'TK890XY', mileage: 68400, status: 'disponibile', needsCleaning: false, fuelLevel: 60, assignedTo: null, pickupDate: null, expectedReturn: null, image: 'https://images.unsplash.com/photo-1541899481282-d53bf1c353d3?auto=format&fit=crop&q=80&w=600' },
+            { id: 'v3', make: 'Peugeot', model: '308 SW', plate: 'GE456CD', mileage: 92100, status: 'disponibile', needsCleaning: false, fuelLevel: 30, assignedTo: null, pickupDate: null, expectedReturn: null, image: 'https://images.unsplash.com/photo-1533473359331-0135ef185bf?auto=format&fit=crop&q=80&w=600' },
+            { id: 'v4', make: 'Fiat', model: 'Ducato', plate: 'GY187AY', mileage: 28000, status: 'disponibile', needsCleaning: false, fuelLevel: 95, assignedTo: null, pickupDate: null, expectedReturn: null, image: 'https://images.unsplash.com/photo-1560939889-88a1929ce897?auto=format&fit=crop&q=80&w=600' }
         ];
 
+        // Storico iniziale vuoto
         const INITIAL_LOGS = [];
-
-        
 
         function App() {
             const [vehicles, setVehicles] = useState(INITIAL_VEHICLES);
@@ -243,126 +242,23 @@
                                         <button onClick={() => setHistoryFilter('dirty')} class={`px-3 py-1.5 rounded-lg text-xs ${historyFilter === 'dirty' ? 'bg-rose-600 text-white' : 'bg-slate-800 text-slate-400'}`}>Segnalazioni Sporcizia</button>
                                     </div>
                                 </div>
-                                <div class="overflow-x-auto">
-                                    <table class="w-full text-left text-xs">
-                                        <thead class="bg-slate-950 text-slate-400 uppercase tracking-wider">
-                                            <tr>
-                                                <th class="p-3">Veicolo</th>
-                                                <th class="p-3">Conducente</th>
-                                                <th class="p-3">Periodo</th>
-                                                <th class="p-3">Km Percorsi</th>
-                                                <th class="p-3">Stato Riconsegna</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="divide-y divide-slate-800">
-                                            {filteredLogs.map(l => (
-                                                <tr key={l.id} class="hover:bg-slate-800/50">
-                                                    <td class="p-3 font-medium text-white">{l.model} <span class="text-slate-400 block font-mono text-[10px]">{l.plate}</span></td>
-                                                    <td class="p-3">{l.employee}</td>
-                                                    <td class="p-3 text-slate-400">{new Date(l.startDate).toLocaleDateString()} ➔ {new Date(l.endDate).toLocaleDateString()}</td>
-                                                    <td class="p-3 font-mono">{(l.endMileage - l.startMileage).toLocaleString()} km</td>
-                                                    <td class="p-3">
-                                                        {l.returnedClean ? (
-                                                            <span class="text-emerald-400 font-medium">✨ Pulito / OK</span>
-                                                        ) : (
-                                                            <div>
-                                                                <span class="text-rose-400 font-bold block">⚠️ Segnalato sporco</span>
-                                                                <span class="text-slate-400 text-[10px] italic">"{l.cleaningNotes}"</span>
-                                                            </div>
-                                                        )}
-                                                    </td>
+                                {filteredLogs.length === 0 ? (
+                                    <p class="text-slate-500 text-center py-8 text-xs">Nessuna registrazione nello storico.</p>
+                                ) : (
+                                    <div class="overflow-x-auto">
+                                        <table class="w-full text-left text-xs">
+                                            <thead class="bg-slate-950 text-slate-400 uppercase tracking-wider">
+                                                <tr>
+                                                    <th class="p-3">Veicolo</th>
+                                                    <th class="p-3">Conducente</th>
+                                                    <th class="p-3">Periodo</th>
+                                                    <th class="p-3">Km Percorsi</th>
+                                                    <th class="p-3">Stato Riconsegna</th>
                                                 </tr>
-                                            ))}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        )}
-
-                        {activeTab === 'new_vehicle' && (
-                            <div class="max-w-xl mx-auto bg-slate-900 border border-slate-800 rounded-2xl p-6">
-                                <h2 class="text-lg font-bold mb-4">Aggiungi Nuovo Veicolo</h2>
-                                <form onSubmit={handleAddVehicleSubmit} class="space-y-4 text-xs">
-                                    <div>
-                                        <label class="block text-slate-400 mb-1">Marca</label>
-                                        <input type="text" required placeholder="es. Ford, Iveco, Volkswagen" value={newVehicleForm.make} onChange={(e) => setNewVehicleForm({...newVehicleForm, make: e.target.value})} class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-sm focus:outline-none focus:border-indigo-500" />
-                                    </div>
-                                    <div>
-                                        <label class="block text-slate-400 mb-1">Modello</label>
-                                        <input type="text" required placeholder="es. Transit, Ducato, Golf" value={newVehicleForm.model} onChange={(e) => setNewVehicleForm({...newVehicleForm, model: e.target.value})} class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-sm focus:outline-none focus:border-indigo-500" />
-                                    </div>
-                                    <div>
-                                        <label class="block text-slate-400 mb-1">Targa</label>
-                                        <input type="text" required placeholder="es. AB123CD" value={newVehicleForm.plate} onChange={(e) => setNewVehicleForm({...newVehicleForm, plate: e.target.value})} class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-sm font-mono focus:outline-none focus:border-indigo-500" />
-                                    </div>
-                                    <div>
-                                        <label class="block text-slate-400 mb-1">Chilometraggio Iniziale (km)</label>
-                                        <input type="number" required value={newVehicleForm.mileage} onChange={(e) => setNewVehicleForm({...newVehicleForm, mileage: e.target.value})} class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-sm focus:outline-none focus:border-indigo-500" />
-                                    </div>
-                                    <div>
-                                        <label class="block text-slate-400 mb-1">URL Immagine (opzionale)</label>
-                                        <input type="text" placeholder="https://..." value={newVehicleForm.image} onChange={(e) => setNewVehicleForm({...newVehicleForm, image: e.target.value})} class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-sm focus:outline-none focus:border-indigo-500" />
-                                    </div>
-                                    <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 rounded-xl transition text-sm">Salva Veicolo nel Parco</button>
-                                </form>
-                            </div>
-                        )}
-                    </main>
-
-                    {modalType === 'checkout' && selectedVehicle && (
-                        <div class="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-                            <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-md w-full p-6 space-y-4">
-                                <h3 class="text-base font-bold">Assegna {selectedVehicle.make} {selectedVehicle.model} ({selectedVehicle.plate})</h3>
-                                <form onSubmit={handleCheckoutSubmit} class="space-y-4 text-xs">
-                                    <div>
-                                        <label class="block text-slate-400 mb-1">Nome Conducente / Responsabile</label>
-                                        <input type="text" required placeholder="es. Mario Rossi" value={checkoutForm.employee} onChange={(e) => setCheckoutForm({...checkoutForm, employee: e.target.value})} class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-sm focus:outline-none focus:border-indigo-500" />
-                                    </div>
-                                    <div>
-                                        <label class="block text-slate-400 mb-1">Data Prevista Rientro</label>
-                                        <input type="datetime-local" value={checkoutForm.expectedReturn} onChange={(e) => setCheckoutForm({...checkoutForm, expectedReturn: e.target.value})} class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-sm focus:outline-none focus:border-indigo-500" />
-                                    </div>
-                                    <div class="flex gap-2 pt-2">
-                                        <button type="button" onClick={() => setModalType(null)} class="w-1/2 bg-slate-800 hover:bg-slate-700 py-2.5 rounded-xl text-slate-300 font-medium">Annulla</button>
-                                        <button type="submit" class="w-1/2 bg-indigo-600 hover:bg-indigo-500 py-2.5 rounded-xl text-white font-medium">Conferma Uscita</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    )}
-
-                    {modalType === 'checkin' && selectedVehicle && (
-                        <div class="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-                            <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-md w-full p-6 space-y-4">
-                                <h3 class="text-base font-bold">Rientro Veicolo: {selectedVehicle.plate}</h3>
-                                <form onSubmit={handleCheckinSubmit} class="space-y-4 text-xs">
-                                    <div>
-                                        <label class="block text-slate-400 mb-1">Chilometraggio Finale (km)</label>
-                                        <input type="number" required min={selectedVehicle.mileage} value={checkinForm.finalMileage} onChange={(e) => setCheckinForm({...checkinForm, finalMileage: e.target.value})} class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-sm focus:outline-none focus:border-indigo-500" />
-                                        <p class="text-[10px] text-slate-500 mt-1">Km di partenza registrati: {selectedVehicle.mileage}</p>
-                                    </div>
-                                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3">
-                                        <label class="flex items-center space-x-3 cursor-pointer">
-                                            <input type="checkbox" checked={checkinForm.isDirty} onChange={(e) => setCheckinForm({...checkinForm, isDirty: e.target.checked})} class="w-4 h-4 rounded text-indigo-600 bg-slate-900 border-slate-700" />
-                                            <span class="font-medium text-slate-200">Il veicolo necessita di pulizia / lavaggio?</span>
-                                        </label>
-                                        {checkinForm.isDirty && (
-                                            <textarea placeholder="Specifica il problema (es. abitacolo sporco, residui nel cassone...)" value={checkinForm.cleaningNotes} onChange={(e) => setCheckinForm({...checkinForm, cleaningNotes: e.target.value})} class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-xs focus:outline-none focus:border-rose-500" rows="2" />
-                                        )}
-                                    </div>
-                                    <div class="flex gap-2 pt-2">
-                                        <button type="button" onClick={() => setModalType(null)} class="w-1/2 bg-slate-800 hover:bg-slate-700 py-2.5 rounded-xl text-slate-300 font-medium">Annulla</button>
-                                        <button type="submit" class="w-1/2 bg-emerald-600 hover:bg-emerald-500 py-2.5 rounded-xl text-white font-medium">Registra Rientro</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    )}
-                </div>
-            );
-        }
-
-        ReactDOM.createRoot(document.getElementById('root')).render(<App />);
-    </script>
-</body>
-</html>
+                                            </thead>
+                                            <tbody class="divide-y divide-slate-800">
+                                                {filteredLogs.map(l => (
+                                                    <tr key={l.id} class="hover:bg-slate-800/50">
+                                                        <td class="p-3 font-medium text-white">{l.model} <span class="text-slate-400 block font-mono text-[10px]">{l.plate}</span></td>
+                                                        <td class="p-3">{l.employee}</td>
+                                                        <td class="p-3 text-slate-400">{new Date(l.startDate).toLocaleDateString()} ➔ {new Date(
